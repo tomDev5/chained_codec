@@ -55,7 +55,6 @@ name = "chained-codec"
 version = "0.1.0"
 dependencies = [
  "bytes",
- "chained-codec",
  "tokio-util",
 ]
 
