@@ -20,7 +20,7 @@ where
     fn chain_decoder<D2>(self, other: D2) -> ChainedDecoder<Self, D2>
     where
         Self: Sized,
-        D: Decoder,
+        D2: Decoder,
     {
         ChainedDecoder::new(self, other)
     }

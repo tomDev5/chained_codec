@@ -12,3 +12,16 @@ pub trait EncoderExt<E>: Encoder<E> {
         ChainedEncoder::new(self, other)
     }
 }
+
+impl<D, E> EncoderExt<E> for D
+where
+    D: Encoder<E>,
+{
+    fn chain_encoder<D2>(self, other: D2) -> ChainedEncoder<Self, D2>
+    where
+        Self: Sized,
+        D2: Encoder<BytesMut>,
+    {
+        ChainedEncoder::new(self, other)
+    }
+}

@@ -1,6 +1,7 @@
 use bytes::BytesMut;
 use tokio_util::codec::Encoder;
 
+#[derive(Debug)]
 pub struct ChainedEncoder<D1, D2> {
     first: D1,
     second: D2,
