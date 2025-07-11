@@ -11,3 +11,6 @@ tokio-util = { version = "0.7.15", features = ["codec"] }
 default = ["encoder", "decoder"]
 encoder = []
 decoder = []
+
+[dev-dependencies]
+chained-codec = { path = ".", features = ["encoder", "decoder"] }

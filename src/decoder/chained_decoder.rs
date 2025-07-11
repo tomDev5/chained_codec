@@ -1,6 +1,7 @@
 use bytes::BytesMut;
 use tokio_util::codec::Decoder;
 
+#[derive(Debug)]
 pub struct ChainedDecoder<D1, D2> {
     first: D1,
     second: D2,
@@ -27,12 +28,14 @@ where
 
     fn decode(&mut self, src: &mut BytesMut) -> Result<Option<Self::Item>, Self::Error> {
         // First, check if we can decode using our buffer
-        if let Some(result) = self
-            .second
-            .decode(&mut self.intermediate_buffer)
-            .map_err(Error::D2)?
-        {
-            return Ok(Some(result));
+        if !self.intermediate_buffer.is_empty() {
+            if let Some(result) = self
+                .second
+                .decode(&mut self.intermediate_buffer)
+                .map_err(Error::D2)?
+            {
+                return Ok(Some(result));
+            }
         }
 
         // Then, try to load more data into the second decoder's buffer using the first decoder
